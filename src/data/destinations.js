@@ -1,0 +1,32 @@
+export const destinations = [
+  {
+    id: 1,
+    name: 'Paris',
+    country: 'France',
+    category: 'europe',
+    image: 'https://images.unsplash.com/photo-1502602898657-3e91760cbb34',
+    description: 'The City of Light beckons with its iconic architecture and romantic ambiance.',
+    rating: 4.8,
+    price: '599',
+  },
+  {
+    id: 2,
+    name: 'Bali',
+    country: 'Indonesia',
+    category: 'asia',
+    image: 'https://images.unsplash.com/photo-1537996194471-e657df975ab4',
+    description: 'Tropical paradise with stunning beaches and rich cultural heritage.',
+    rating: 4.7,
+    price: '799',
+  },
+  {
+    id: 3,
+    name: 'Tokyo',
+    country: 'Japan',
+    category: 'asia',
+    image: 'https://images.unsplash.com/photo-1540959733332-eab4deabeeaf',
+    description: 'Modern metropolis where tradition meets technology.',
+    rating: 4.9,
+    price: '899',
+  },
+]
