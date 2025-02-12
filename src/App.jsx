@@ -26,7 +26,7 @@ function App() {
           <Route path="/hotels" element={<Hotels />} />
           <Route path="/flights" element={<Flights />} />
           <Route path="/activities" element={<Activities />} />
-          <Route path="/booking" element={<Booking />} />
+          <Route path="/booking/:destinationId" element={<Booking />} />  {/* Dynamic route */}
           <Route path="/about" element={<About />} />
           <Route path="/contact" element={<Contact />} />
           <Route path="/blog" element={<TravelBlog />} />

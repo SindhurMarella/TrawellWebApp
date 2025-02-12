@@ -28,7 +28,7 @@ function DestinationCard({ destination }) {
           )}
           <div className="flex justify-between items-center">
             <p className="text-primary font-bold text-xl">From ${destination.price}</p>
-            <span className="btn btn-primary">View Details</span>
+            <span className="btn btn-secondary">View Details</span>
           </div>
         </div>
       </Link>

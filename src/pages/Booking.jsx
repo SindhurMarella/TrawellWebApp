@@ -1,8 +1,13 @@
 import React, { useState } from 'react'
+import { useParams } from 'react-router-dom'
+import { destinations } from '../data/destinations'  // Import destination data
 import DatePicker from 'react-datepicker'
 import "react-datepicker/dist/react-datepicker.css"
 
 function Booking() {
+  const { destinationId } = useParams()
+  const selectedDestination = destinations.find(dest => dest.id === parseInt(destinationId))
+
   const [formData, setFormData] = useState({
     firstName: '',
     lastName: '',
@@ -10,126 +15,66 @@ function Booking() {
     phone: '',
     guests: 1,
   })
+
   const [startDate, setStartDate] = useState(new Date())
   const [endDate, setEndDate] = useState(new Date())
 
   const handleChange = (e) => {
     const { name, value } = e.target
-    setFormData(prev => ({
-      ...prev,
-      [name]: value
-    }))
+    setFormData(prev => ({ ...prev, [name]: value }))
   }
 
   const handleSubmit = (e) => {
     e.preventDefault()
-    // Handle booking submission
-    console.log({ ...formData, startDate, endDate })
+    console.log({ destination: selectedDestination.name, ...formData, startDate, endDate })
+    alert(`Booking confirmed for ${selectedDestination.name}`)
+  }
+
+  if (!selectedDestination) {
+    return <p className="text-center text-red-500">Destination not found!</p>
   }
 
   return (
     <div className="max-w-3xl mx-auto px-4 py-12">
-      <h1 className="text-4xl font-bold mb-8">Book Your Trip</h1>
-      
+      <h1 className="text-4xl font-bold mb-8">Book Your Trip to {selectedDestination.name}</h1>
+      <img src={selectedDestination.image} alt={selectedDestination.name} className="w-full h-56 object-cover rounded-lg mb-6" />
+
       <form onSubmit={handleSubmit} className="bg-white rounded-lg shadow-md p-6">
         <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mb-6">
           <div>
-            <label className="block text-gray-700 mb-2" htmlFor="firstName">
-              First Name
-            </label>
-            <input
-              type="text"
-              id="firstName"
-              name="firstName"
-              value={formData.firstName}
-              onChange={handleChange}
-              className="input"
-              required
-            />
+            <label className="block text-gray-700 mb-2" htmlFor="firstName">First Name</label>
+            <input type="text" id="firstName" name="firstName" value={formData.firstName} onChange={handleChange} className="input" required />
           </div>
-          
           <div>
-            <label className="block text-gray-700 mb-2" htmlFor="lastName">
-              Last Name
-            </label>
-            <input
-              type="text"
-              id="lastName"
-              name="lastName"
-              value={formData.lastName}
-              onChange={handleChange}
-              className="input"
-              required
-            />
+            <label className="block text-gray-700 mb-2" htmlFor="lastName">Last Name</label>
+            <input type="text" id="lastName" name="lastName" value={formData.lastName} onChange={handleChange} className="input" required />
           </div>
         </div>
 
         <div className="mb-6">
-          <label className="block text-gray-700 mb-2" htmlFor="email">
-            Email
-          </label>
-          <input
-            type="email"
-            id="email"
-            name="email"
-            value={formData.email}
-            onChange={handleChange}
-            className="input"
-            required
-          />
+          <label className="block text-gray-700 mb-2" htmlFor="email">Email</label>
+          <input type="email" id="email" name="email" value={formData.email} onChange={handleChange} className="input" required />
         </div>
 
         <div className="mb-6">
-          <label className="block text-gray-700 mb-2" htmlFor="phone">
-            Phone Number
-          </label>
-          <input
-            type="tel"
-            id="phone"
-            name="phone"
-            value={formData.phone}
-            onChange={handleChange}
-            className="input"
-            required
-          />
+          <label className="block text-gray-700 mb-2" htmlFor="phone">Phone Number</label>
+          <input type="tel" id="phone" name="phone" value={formData.phone} onChange={handleChange} className="input" required />
         </div>
 
         <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mb-6">
           <div>
             <label className="block text-gray-700 mb-2">Check In</label>
-            <DatePicker
-              selected={startDate}
-              onChange={date => setStartDate(date)}
-              className="input"
-              required
-            />
+            <DatePicker selected={startDate} onChange={date => setStartDate(date)} className="input" required />
           </div>
-          
           <div>
             <label className="block text-gray-700 mb-2">Check Out</label>
-            <DatePicker
-              selected={endDate}
-              onChange={date => setEndDate(date)}
-              className="input"
-              required
-            />
+            <DatePicker selected={endDate} onChange={date => setEndDate(date)} className="input" required />
           </div>
         </div>
 
         <div className="mb-6">
-          <label className="block text-gray-700 mb-2" htmlFor="guests">
-            Number of Guests
-          </label>
-          <input
-            type="number"
-            id="guests"
-            name="guests"
-            value={formData.guests}
-            onChange={handleChange}
-            min="1"
-            className="input"
-            required
-          />
+          <label className="block text-gray-700 mb-2" htmlFor="guests">Number of Guests</label>
+          <input type="number" id="guests" name="guests" value={formData.guests} onChange={handleChange} min="1" className="input" required />
         </div>
 
         <button type="submit" className="btn btn-primary w-full">
